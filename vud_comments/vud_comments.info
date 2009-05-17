@@ -1,0 +1,6 @@
+; $Id: vud_comments.info,v 1.1.2.1 2009/05/01 19:18:22 lut4rp Exp $;
+name = Vote Up/Down Comments
+description = "Allows adding an up/down voting widget to comments."
+dependencies[] = vote_up_down
+package = Voting
+core = 6.x

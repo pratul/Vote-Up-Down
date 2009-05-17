@@ -1,0 +1,6 @@
+; $Id: vote_up_down.info,v 1.5.2.5.2.1 2009/04/30 07:21:05 lut4rp Exp $
+name = Vote Up/Down
+description = "Provides a configurable up/down voting widget for other modules to use."
+dependencies[] = votingapi
+package = Voting
+core = 6.x

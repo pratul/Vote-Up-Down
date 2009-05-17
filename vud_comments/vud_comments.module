@@ -1,0 +1,28 @@
+<?php
+/* $Id: vud_comments.module,v 1.1.2.1 2009/05/01 19:18:22 lut4rp Exp $; */
+
+/*   $form['vote_widget_settings_comment'] = array( */
+/*     '#type' => 'fieldset', */
+/*     '#title' => t('Vote widget settings for comments'), */
+/*     '#description' => t('For more control over the voting widget placement, it can be inserted directly in the theme. See the included node-storylink.tpl.php for an example. When this method is used, turn off the widget display here.'), */
+/*   ); */
+/*   $form['vote_widget_settings_comment']['vote_up_down_widget_style_comment'] = array( */
+/*     '#type' => 'radios', */
+/*     '#title' => t('Vote widget style'), */
+/*     '#default_value' => variable_get('vote_up_down_widget_style_comment', 0), */
+/*     '#options' => array(0 => t('Default +1/-1 vote style'), 1 => t('Alternative +1 vote style')), */
+/*     '#description' => t('If set to alternative style, it\'s recomended to turn off the link display of vote points.'), */
+/*   ); */
+/*   $form['vote_widget_settings_comment']['vote_up_down_widget_comment'] = array( */
+/*     '#type' => 'radios', */
+/*     '#title' => t('Vote widget display'), */
+/*     '#default_value' => variable_get('vote_up_down_widget_comment', 1), */
+/*     '#options' => array(0 => t('Do not display widget'), 1 => t('Display widget')), */
+/*   ); */
+/*   $form['vote_widget_settings_comment']['vote_up_down_link_comment'] = array( */
+/*     '#type' => 'radios', */
+/*     '#title' => t('Link display of vote points'), */
+/*     '#default_value' => variable_get('vote_up_down_link_comment', 1), */
+/*     '#options' => array(0 => t('Do not display link'), 1 => t('Display link')), */
+/*   ); */
+

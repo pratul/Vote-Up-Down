@@ -1,5 +1,5 @@
 <?php
-// $Id: vote_up_down.module,v 1.24.2.31.2.6 2009/05/03 19:24:58 lut4rp Exp $
+// $Id: vud.module,v 1.1.2.1 2009/05/26 11:36:55 lut4rp Exp $
 
 /**
  * @file

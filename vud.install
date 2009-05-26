@@ -1,5 +1,5 @@
 <?php
-// $Id: vote_up_down.install,v 1.4.2.1.2.1 2009/04/30 07:19:58 lut4rp Exp $
+// $Id: vud.install,v 1.1.2.1 2009/05/26 11:36:55 lut4rp Exp $
 
 /**
  * @file

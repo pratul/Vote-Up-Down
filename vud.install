@@ -9,31 +9,30 @@
 /**
  * Implementation of hook_install().
  */
-function vote_up_down_install() {
-  drupal_install_schema('vote_up_down');
+function vud_install() {
+  drupal_install_schema('vud');
 }
 
 /**
  * Implementation of hook_schema().
  */
-function vote_up_down_schema() {
+function vud_schema() {
   return array();
 }
 
 /**
  * Implementation of hook_uninstall().
  */
-function vote_up_down_uninstall() {
-  drupal_uninstall_schema('vote_up_down');
-  variable_del('vote_up_down_node_types');
-  variable_del('vote_up_down_widget_style_node');
-  variable_del('vote_up_down_widget_node');
-  variable_del('vote_up_down_link_node');
-  variable_del('vote_up_down_widget_style_comment');
-  variable_del('vote_up_down_widget_comment');
-  variable_del('vote_up_down_link_comment');
-  variable_del('vote_up_down_tag');
-  variable_del('vote_up_down_reset_vote');
-  variable_del('userpoints_vote_up_down');
-  variable_del('userpoints_actions');
+function vud_uninstall() {
+  drupal_uninstall_schema('vud');
+  variable_del('vud_node_types');
+  variable_del('vud_widget_style_node');
+  variable_del('vud_widget_node');
+  variable_del('vud_link_node');
+  variable_del('vud_widget_style_comment');
+  variable_del('vud_widget_comment');
+  variable_del('vud_link_comment');
+  variable_del('vud_tag');
+  variable_del('vud_reset_vote');
+
 }

@@ -42,43 +42,16 @@ function vud_node_menu() {
  * Advanced menu settings callback.
  */
 function vud_node_admin_settings() {
-  $form['vote_node_types'] = array(
+  $form['vud_node_types'] = array(
     '#type' => 'fieldset',
     '#title' => t('Node types'),
     '#description' => t('Select the node types you want to activate voting on.'),
   );
-  $form['vote_node_types']['vote_up_down_node_types'] = array(
+  $form['vud_node_types']['vud_node_types_list'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Types'),
-    '#default_value' => variable_get('vote_up_down_node_types', array()),
+    '#default_value' => variable_get('vud_node_types', array()),
     '#options' => node_get_types('names'),
-  );
-
-  $form['vote_widget_settings_node'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Vote widget settings for nodes'),
-    '#description' => t('For more control over the voting widget placement, it can be inserted directly in the theme. See the included template.php and node-storylink.tpl.php for an example. When this method is used, turn off the widget display here.'),
-  );
-  $form['vote_widget_settings_node']['vote_up_down_widget_style_node'] = array(
-    '#type' => 'radios',
-    '#title' => t('Vote widget style'),
-    '#default_value' => variable_get('vote_up_down_widget_style_node', 0),
-    '#options' => array(0 => t('Default +1/-1 vote style'), 1 => t('Alternative +1 vote style')),
-    '#description' => t('If set to alternative style, it\'s recomended to turn off the link display of vote points.'),
-  );
-  $form['vote_widget_settings_node']['vote_up_down_widget_node'] = array(
-    '#type' => 'select',
-    '#title' => t('Vote widget display'),
-    '#default_value' => variable_get('vote_up_down_widget_node', 3),
-    '#options' => array(0 => t('Disabled'), 1 => t('Teaser view'), 2 => t('Full-page view'), 3 => t('Teasers and full-page view')),
-    '#description' => t('When to display the vote widget for nodes?'),
-  );
-  $form['vote_widget_settings_node']['vote_up_down_link_node'] = array(
-    '#type' => 'select',
-    '#title' => t('Link display of vote points'),
-    '#default_value' => variable_get('vote_up_down_link_node', 3),
-    '#options' => array(0 => t('Disabled'), 1 => t('Teaser view'), 2 => t('Full-page view'), 3 => t('Teasers and full-page view')),
-    '#description' => t('When to display vote points for nodes?'),
   );
 
   return system_settings_form($form);
@@ -90,7 +63,7 @@ function vud_node_admin_settings() {
 function vud_node_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
   switch ($op) {
     case 'view':
-      if (user_access('view up/down votes')) {
+      if (user_access('use vote up/down on nodes')) {
         $node_type = in_array($node->type, variable_get('vote_up_down_node_types', array()), TRUE);
         if ($node_type) {
           $style = variable_get('vote_up_down_widget_style_node', 0) == 1 ? '_alt' : '';

@@ -84,3 +84,43 @@ function vud_node_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
       break;
   }
 }
+
+/**
+ * Menu callback; display all votes for a node.
+ */
+function vud_node_tracker() {
+  if ($node = menu_get_object()) {
+    $header = array(
+      array('data' => t('User')),
+      array('data' => t('Vote')),
+      array('data' => t('Date'))
+    );
+    $tag = variable_get('vud_tag', 'vote');
+    $criteria = array('content_type' => 'node', 'content_id' => $node->nid, 'tag' => $tag);
+    $votes = votingapi_select_votes($criteria);
+    foreach ($votes as $vote) {
+      $account = user_load(array('uid' => $vote['uid'], 'status' => 1));
+      $rows[] = array(
+        theme('username', $account),
+        $vote['value'],
+        array('data' => format_date($vote['timestamp'], 'small'), 'class' => 'nowrap')
+      );
+    }
+    drupal_set_title(check_plain($node->title));
+    $output = theme('table', $header, $rows);
+    $output .= theme('pager', NULL, 30);
+
+    return $output;
+  }
+  else {
+    drupal_not_found();
+  }
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function vud_node_theme() {
+
+}
+

@@ -424,40 +424,6 @@ function _vud_get_uid() {
   return $uid;
 }
 
-/* /\** */
-/*  * Implementation of hook_theme(). */
-/*  *\/ */
-/* function vud_theme() { */
-/*   return array( */
-/*     'vud_widget' => array( */
-/*       'file' => 'vud.module', */
-/*       'arguments' => array( */
-/*         'cid' => NULL, */
-/*         'type' => NULL, */
-/*       ), */
-/*       'template' => 'theme/vud_widget', */
-/*     ), */
-/*     'vud_widget_alt' => array( */
-/*       'file' => 'vud.module', */
-/*       'arguments' => array( */
-/*         'cid' => NULL, */
-/*         'type' => NULL, */
-/*       ), */
-/*       'template' => 'theme/vud_widget_alt', */
-/*     ), */
-/*     'vud_points' => array( */
-/*       'file' => 'vud.module', */
-/*       'arguments' => array( */
-/*         'cid' => NULL, */
-/*         'type' => NULL, */
-/*         'tag' => NULL, */
-/*         'style' => NULL, */
-/*       ), */
-/*       'template' => 'theme/vud_points', */
-/*     ), */
-/*   ); */
-/* } */
-
 /**
  * Check whether the current user has access to the given permission for the
  * given node. This requires both that they have access the required permission,

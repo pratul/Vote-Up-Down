@@ -63,7 +63,6 @@ function vud_menu() {
     'weight' => -10,
   );
 
-  // vote_up_down/$type/$cid/$value/$tag/$ajax/$alt
   $items['vud'] = array(
     'title' => 'Vote',
     'page callback' => 'vud_vote',
@@ -89,20 +88,6 @@ function vud_menu() {
   );
 
   return $items;
-}
-
-/**
- * Node template preprocess. Adding vud widget to variable list.
- */
-function vud_preprocess_node(&$variables) {
-  if (user_access('view up/down votes')) {
-    $node = $variables['node'];
-    $node_type = in_array($node->type, variable_get('vud_node_types', array()), TRUE);
-    if ($node->nid && $node_type) {
-      $style = variable_get('vud_widget_style_node', 0) == 1 ? '_alt' : '';
-      $variables['vud'] = theme("vud_widget$style", $node->nid, 'node');
-    }
-  }
 }
 
 /**
@@ -439,39 +424,39 @@ function _vud_get_uid() {
   return $uid;
 }
 
-/**
- * Implementation of hook_theme().
- */
-function vud_theme() {
-  return array(
-    'vud_widget' => array(
-      'file' => 'vud.module',
-      'arguments' => array(
-        'cid' => NULL,
-        'type' => NULL,
-      ),
-      'template' => 'theme/vud_widget',
-    ),
-    'vud_widget_alt' => array(
-      'file' => 'vud.module',
-      'arguments' => array(
-        'cid' => NULL,
-        'type' => NULL,
-      ),
-      'template' => 'theme/vud_widget_alt',
-    ),
-    'vud_points' => array(
-      'file' => 'vud.module',
-      'arguments' => array(
-        'cid' => NULL,
-        'type' => NULL,
-        'tag' => NULL,
-        'style' => NULL,
-      ),
-      'template' => 'theme/vud_points',
-    ),
-  );
-}
+/* /\** */
+/*  * Implementation of hook_theme(). */
+/*  *\/ */
+/* function vud_theme() { */
+/*   return array( */
+/*     'vud_widget' => array( */
+/*       'file' => 'vud.module', */
+/*       'arguments' => array( */
+/*         'cid' => NULL, */
+/*         'type' => NULL, */
+/*       ), */
+/*       'template' => 'theme/vud_widget', */
+/*     ), */
+/*     'vud_widget_alt' => array( */
+/*       'file' => 'vud.module', */
+/*       'arguments' => array( */
+/*         'cid' => NULL, */
+/*         'type' => NULL, */
+/*       ), */
+/*       'template' => 'theme/vud_widget_alt', */
+/*     ), */
+/*     'vud_points' => array( */
+/*       'file' => 'vud.module', */
+/*       'arguments' => array( */
+/*         'cid' => NULL, */
+/*         'type' => NULL, */
+/*         'tag' => NULL, */
+/*         'style' => NULL, */
+/*       ), */
+/*       'template' => 'theme/vud_points', */
+/*     ), */
+/*   ); */
+/* } */
 
 /**
  * Check whether the current user has access to the given permission for the

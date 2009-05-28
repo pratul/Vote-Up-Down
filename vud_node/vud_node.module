@@ -124,3 +124,17 @@ function vud_node_theme() {
 
 }
 
+/**
+ * Node template preprocess. Adding vud widget to variable list.
+ */
+function vud_preprocess_node(&$variables) {
+  if (user_access('view up/down votes')) {
+    $node = $variables['node'];
+    $node_type = in_array($node->type, variable_get('vud_node_types', array()), TRUE);
+    if ($node->nid && $node_type) {
+      $style = variable_get('vud_widget_style_node', 0) == 1 ? '_alt' : '';
+      $variables['vud'] = theme("vud_widget$style", $node->nid, 'node');
+    }
+  }
+}
+

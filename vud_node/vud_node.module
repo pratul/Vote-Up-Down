@@ -10,7 +10,7 @@
  * Implementation of hook_perm().
  */
 function vud_node_perm() {
-  return array('view up/down votes', 'use vote up/down', 'access vote up/down statistics', 'administer vote up/down');
+  return array('use vote up/down on nodes', 'administer vote up/down on nodes', 'see vote up/down node stats');
 }
 
 /**
@@ -24,44 +24,14 @@ function vud_node_menu() {
     'description' => 'Vote Up/Down Node settings',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('vud_node_admin_settings'),
-    'access arguments' => array('administer vote up/down'),
+    'access arguments' => array('administer vote up/down on nodes'),
     'type' => MENU_LOCAL_TASK,
-  );
-
-  // vote_up_down/$type/$cid/$value/$tag/$ajax/$alt
-  $items['vote_up_down'] = array(
-    'title' => 'Vote',
-    'page callback' => 'vote_up_down_vote',
-    'access arguments' => array('use vote up/down'),
-    'type' => MENU_CALLBACK,
-  );
-
-  $items['voteupdown'] = array(
-    'title' => 'Voting statistics',
-    'page callback' => 'vote_up_down_page',
-    'access arguments' => array('access vote up/down statistics'),
-  );
-
-  $items['voteupdown/usersvotes'] = array(
-    'title' => 'Users by votes',
-    'page callback' => 'vote_up_down_page',
-    'access arguments' => array('access vote up/down statistics'),
   );
 
   $items['node/%node/votes'] = array(
     'title' => 'Voting details',
-    'page callback' => 'vote_up_down_tracker',
-    'page arguments' => array(1),
-    'access callback' => 'vote_up_down_node_access',
-    'access arguments' => array(1),
-    'type' => MENU_LOCAL_TASK,
-  );
-
-  $items['user/%user/votesupdown'] = array(
-    'title' => 'Your votes',
-    'page callback' => 'vote_up_down_user_votes',
-    'page arguments' => array(1),
-    'access arguments' => array('access vote up/down statistics'),
+    'page callback' => 'vud_node_tracker',
+    'access arguments' => array('see vote up/down node stats'),
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -114,97 +84,30 @@ function vud_node_admin_settings() {
   return system_settings_form($form);
 }
 
-// Start mindless data movement...
-
-/**
- * Implementation of hook_block().
- */
-
-/* function vote_up_down_block($op = 'list', $delta = 0) { */
-/*   if ($op == 'list') { */
-/*     $blocks[0]['info'] = t('Who voted on this?'); */
-/*     return $blocks; */
-/*   } */
-
-/*   if ($op == 'view') { */
-/*     if (user_access('access content')) { */
-/*       switch ($delta) { */
-/*         case 0: */
-/*           if (arg(0) == 'node' & is_numeric(arg(1))) { */
-/*             // Check that this node type is enabled for vote_up_down, and if not don't display the block. */
-/*             $node = node_load(arg(1)); */
-/*             if (!vote_up_down_node_access($node)) { */
-/*               return; */
-/*             } */
-/*             $title = t('Who voted on this?'); */
-/*             $nid = arg(1); */
-/*             $tag = variable_get('vote_up_down_tag', 'vote'); */
-/*             $votes = array('content_id' => $nid, 'tag' => $tag); */
-/*             // TODO: support multiple 'tag' in a nested table? */
-
-/*             $voteresults = votingapi_select_votes($votes); */
-/*             $output = theme('vote_up_down_whovoted_block', $nid, $voteresults); */
-/*           } */
-/*           break; */
-/*       } */
-/*       $block['subject'] = $title; */
-/*       $block['content'] = $output; */
-/*       return $block; */
-/*     } */
-/*   } */
-/* } */
-
-/**
- * Theme function for the 'Who Voted' block.
- */
-/* function theme_vote_up_down_whovoted_block($nid, $voteresults) { */
-/*   if ($voteresults) { */
-/*     $items = array(); */
-/*     foreach ($voteresults as $vote) { */
-/*       $account = user_load(array('uid' => $vote['uid'], 'status' => 1)); */
-/*       $items[] = theme('username', $account) .' ('. $vote['value'] .')'; */
-/*     } */
-/*     $output = theme('item_list', $items); */
-/*   } */
-/*   else { */
-/*     $output = t('No one\'s voted yet! Why don\'t you?'); */
-/*   } */
-/*   return $output; */
-/* } */
-
-/*     'vote_up_down_whovoted_block' => array( */
-/*       'file' => 'vote_up_down.module', */
-/*       'arguments' => array( */
-/*         'nid' => NULL, */
-/*         'voteresults' => NULL, */
-/*       ), */
-/*     ), */
-
-
 /**
  * Implementation of hook_nodeapi().
  */
-/* function vote_up_down_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) { */
-/*   switch ($op) { */
-/*     case 'view': */
-/*       if (user_access('view up/down votes')) { */
-/*         $node_type = in_array($node->type, variable_get('vote_up_down_node_types', array()), TRUE); */
-/*         if ($node_type) { */
-/*           $style = variable_get('vote_up_down_widget_style_node', 0) == 1 ? '_alt' : ''; */
-/*           if ($teaser && variable_get('vote_up_down_widget_node', 0) && variable_get('vote_up_down_widget_node', 0) != 2) { */
-/*             $node->content['vote_up_down'] = array( */
-/*               '#value' => theme("vote_up_down_widget$style", $node->nid, 'node'), */
-/*               '#weight' => -10, */
-/*             ); */
-/*           } */
-/*           else if (!$teaser && variable_get('vote_up_down_widget_node', 0) > 1) { */
-/*             $node->content['vote_up_down'] = array( */
-/*               '#value' => theme("vote_up_down_widget$style", $node->nid, 'node'), */
-/*               '#weight' => -10, */
-/*             ); */
-/*           } */
-/*         } */
-/*       } */
-/*       break; */
-/*   } */
-/* } */
+function vud_node_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
+  switch ($op) {
+    case 'view':
+      if (user_access('view up/down votes')) {
+        $node_type = in_array($node->type, variable_get('vote_up_down_node_types', array()), TRUE);
+        if ($node_type) {
+          $style = variable_get('vote_up_down_widget_style_node', 0) == 1 ? '_alt' : '';
+          if ($teaser && variable_get('vote_up_down_widget_node', 0) && variable_get('vote_up_down_widget_node', 0) != 2) {
+            $node->content['vote_up_down'] = array(
+              '#value' => theme("vote_up_down_widget$style", $node->nid, 'node'),
+              '#weight' => -10,
+            );
+          }
+          else if (!$teaser && variable_get('vote_up_down_widget_node', 0) > 1) {
+            $node->content['vote_up_down'] = array(
+              '#value' => theme("vote_up_down_widget$style", $node->nid, 'node'),
+              '#weight' => -10,
+            );
+          }
+        }
+      }
+      break;
+  }
+}

@@ -64,18 +64,18 @@ function vud_node_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
   switch ($op) {
     case 'view':
       if (user_access('use vote up/down on nodes')) {
-        $node_type = in_array($node->type, variable_get('vote_up_down_node_types', array()), TRUE);
+        $node_type = in_array($node->type, variable_get('vud_node_types', array()), TRUE);
         if ($node_type) {
-          $style = variable_get('vote_up_down_widget_style_node', 0) == 1 ? '_alt' : '';
-          if ($teaser && variable_get('vote_up_down_widget_node', 0) && variable_get('vote_up_down_widget_node', 0) != 2) {
-            $node->content['vote_up_down'] = array(
-              '#value' => theme("vote_up_down_widget$style", $node->nid, 'node'),
+          $style = variable_get('vud_widget_style_node', 0) == 1 ? '_alt' : '';
+          if ($teaser && variable_get('vud_widget_node', 0) && variable_get('vud_widget_node', 0) != 2) {
+            $node->content['vud'] = array(
+              '#value' => theme("vud_widget$style", $node->nid, 'node'),
               '#weight' => -10,
             );
           }
-          else if (!$teaser && variable_get('vote_up_down_widget_node', 0) > 1) {
-            $node->content['vote_up_down'] = array(
-              '#value' => theme("vote_up_down_widget$style", $node->nid, 'node'),
+          else if (!$teaser && variable_get('vud_widget_node', 0) > 1) {
+            $node->content['vud'] = array(
+              '#value' => theme("vud_widget$style", $node->nid, 'node'),
               '#weight' => -10,
             );
           }

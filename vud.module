@@ -3,8 +3,11 @@
 
 /**
  * @file
- * Implements the main voting functions.
+ * Implements the core voting module.
  */
+
+// Include the theme.inc file
+module_load_include('inc', 'vud', 'vud.theme');
 
 /**
  * Implementation of hook_help().

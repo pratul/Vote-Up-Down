@@ -6,8 +6,8 @@
  * Implements the core voting module.
  */
 
-// Include the theme.inc file
-module_load_include('inc', 'vud', 'vud.theme');
+module_load_include('inc', 'vud', 'vud.theme');  // Include the theme.inc file.
+define('VTAG', 'vud');                           // Define the Voting API $tag value.
 
 /**
  * Implementation of hook_help().
@@ -38,7 +38,7 @@ function vud_admin_advanced_settings() {
   $form['vote_widget_settings_advanced']['vud_tag'] = array(
     '#type' => 'textfield',
     '#title' => t('Voting API tag'),
-    '#default_value' => variable_get('vud_tag', 'vote'),
+    '#default_value' => variable_get('vud_tag', 'vud'),
     '#description' => t('Since Vote Up/Down uses Voting API, all votes will be tagged with this term. (default: vote)<br />This tag is useful is you have deployed various modules that use Voting API. It should always be a unique value. Usually, there is NO need to change this.'),
   );
 
@@ -71,15 +71,6 @@ function vud_menu() {
     'page callback' => 'vud_vote',
     'access arguments' => array('use vote up/down'),
     'type' => MENU_CALLBACK,
-  );
-
-  $items['node/%node/votes'] = array(
-    'title' => 'Voting details',
-    'page callback' => 'vud_tracker',
-    'page arguments' => array(1),
-    'access callback' => 'vud_node_access',
-    'access arguments' => array(1),
-    'type' => MENU_LOCAL_TASK,
   );
 
   $items['user/%user/votes'] = array(

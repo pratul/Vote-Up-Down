@@ -66,22 +66,12 @@ function vud_node_nodeapi(&$node, $op, $teaser = NULL, $page = NULL) {
       if (user_access('use vote up/down on nodes')) {
         $node_type = in_array($node->type, variable_get('vud_node_types', array()), TRUE);
         if ($node_type) {
-          $style = variable_get('vud_widget_style_node', 0) == 1 ? '_alt' : '';
-          if ($teaser && variable_get('vud_widget_node', 0) && variable_get('vud_widget_node', 0) != 2) {
             $node->content['vud'] = array(
-              '#value' => theme("vud_widget$style", $node->nid, 'node'),
+              '#value' => theme("vud_widget", $node->nid, 'node'),
               '#weight' => -10,
             );
-          }
-          else if (!$teaser && variable_get('vud_widget_node', 0) > 1) {
-            $node->content['vud'] = array(
-              '#value' => theme("vud_widget$style", $node->nid, 'node'),
-              '#weight' => -10,
-            );
-          }
         }
       }
-      break;
   }
 }
 
@@ -118,96 +108,15 @@ function vud_node_tracker() {
 }
 
 /**
- * Implementation of hook_theme().
- */
-function vud_node_theme() {
-  return array(
-    'vud_node_widget' => array(
-      'arguments' => array(
-        'cid' => NULL,
-        'type' => NULL,
-      ),
-      'template' => '$vudpath/theme/vud_widget',
-    ),
-  );
-}
-
-/**
  * Node template preprocess. Adding vud widget to variable list.
  */
-function vud_preprocess_node(&$variables) {
-  if (user_access('view up/down votes')) {
-    $node = $variables['node'];
-    $node_type = in_array($node->type, variable_get('vud_node_types', array()), TRUE);
-    if ($node->nid && $node_type) {
-      $style = variable_get('vud_widget_style_node', 0) == 1 ? '_alt' : '';
-      $variables['vud'] = theme("vud_widget$style", $node->nid, 'node');
-    }
-  }
-}
-
-/**
- * Preprocessing function for +1/-1 style.
- */
-function template_preprocess_vud_widget(&$variables) {
-  global $user;
-  $cid = $variables['cid'];
-  $type = $variables['type'];
-  $tag = isset($variables['tag']) ? $variables['tag'] : variable_get('vud_tag', 'vote');
-
-  drupal_add_css(drupal_get_path('module', 'vud') .'/vud.css');
-  drupal_add_js(drupal_get_path('module', 'vud') .'/ajax_vud.js');
-
-  $variables['points'] = theme('vud_points', $cid, $type, $tag);
-  if (user_access('use vote up/down') && ($user->uid)) {
-    $criteria = array(
-      'content_type' => $type,
-      'content_id' => $cid,
-      'uid' => _vud_get_uid(),
-      'tag' => $tag,
-    );
-    $user_vote = votingapi_select_single_vote_value($criteria);
-
-    if ($user_vote > 0) {
-      $variables['class1'] = 'vote-up-act';
-      $variables['class2'] = 'vote-down-inact';
-    }
-    else if ($user_vote < 0) {
-      $variables['class1'] = 'vote-up-inact';
-      $variables['class2'] = 'vote-down-act';
-    }
-    else {
-      $variables['class1'] = 'vote-up-inact';
-      $variables['class2'] = 'vote-down-inact';
-    }
-
-    $token = drupal_get_token("vud/$type/$cid/1");
-    $variables['title1'] = url("vud/$type/$cid/1/$tag/1", array('query' => 'token='. $token));
-    $variables['link1'] = l('', "vud/$type/$cid/1/$tag", array(
-                                               'attributes' => array(
-                                                 'class' => $variables['class1'],
-                                                 'title' => t('Vote up')
-                                               ),
-                                               'query' => drupal_get_destination() .'&token='. $token,
-                                              )
-                                            );
-
-    $token = drupal_get_token("vud/$type/$cid/-1");
-    $variables['title2'] = url("vud/$type/$cid/-1/$tag/1", array('query' => 'token='. $token));
-    $variables['link2'] =  l('', "vud/$type/$cid/-1/$tag", array(
-                                                'attributes' => array(
-                                                  'class' => $variables['class2'],
-                                                  'title' => t('Vote down')
-                                                ),
-                                                'query' => drupal_get_destination() .'&token='. $token,
-                                               )
-                                             );
-  }
-  else {
-    $variables['class1'] = 'up-inact';
-    $variables['class2'] = 'down-inact';
-    $variables['title1'] = t('You must login to vote!');
-    $variables['title2'] = t('You must login to vote!');
-  }
-}
-
+/* function vud_node_preprocess_node(&$variables) { */
+/*   if (user_access('view up/down votes')) { */
+/*     $node = $variables['node']; */
+/*     $node_type = in_array($node->type, variable_get('vud_node_types', array()), TRUE); */
+/*     if ($node->nid && $node_type) { */
+/*       $style = variable_get('vud_widget_style_node', 0) == 1 ? '_alt' : ''; */
+/*       $variables['vud'] = theme("vud_widget$style", $node->nid, 'node'); */
+/*     } */
+/*   } */
+/* } */

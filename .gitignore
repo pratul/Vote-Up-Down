@@ -1,0 +1,7 @@
+# .gitignore for Vote Up/Down
+# Pratul Kalia (lut4rp)
+# Time-stamp: <2009-06-01 22:12:00 lut4rp>
+*~
+*.kpf
+CVS
+*.tmproj

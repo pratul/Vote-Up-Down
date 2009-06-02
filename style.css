@@ -1,7 +1,11 @@
 body {
     margin-top: 1.0em;
-    background-color: #012345;
-    font-family: serif;
+	background: #111;
+    background-image: url('druplicon.png');
+	background-position: 10% 50%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+    font-family: sans-serif;
     color: #ffffff;
 }
 #container {

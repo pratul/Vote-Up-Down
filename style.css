@@ -5,21 +5,29 @@ body {
 	background-position: 10% 50%;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-    font-family: sans-serif;
+    font-family: serif;
     color: #ffffff;
 }
 #container {
     margin: 0 auto;
     width: 700px;
 }
-h1 { font-size: 3.8em; color: #ff883f; margin-bottom: 3px; }
+h1 {
+	font-size: 3.8em;
+	color: #3399ff; 
+	margin-bottom: 3px; 
+}
 h1 .small { font-size: 0.4em; }
 h1 a { text-decoration: none }
-h2 { font-size: 1.5em; color: #ff883f; }
-h3 { text-align: center; color: #ff883f; }
-a { color: #ff883f; }
+h2 { font-size: 1.4em; color: #3399ff; }
+h3 { text-align: center; color: #3399ff; }
+a { color: #3399ff; }
 .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
 .download { float: right; }
 pre { background: #000; color: #fff; padding: 15px;}
 hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
 .footer { text-align:center; padding-top:30px; font-style: italic; }
+#accordion h2 {
+	background-color: #222;
+	padding: 6px;
+}

@@ -8,6 +8,11 @@
 <link type="text/css" rel="stylesheet" href="style.css" />
 <script src="jquery-1.3.2.min.js" type="text/javascript"></script>
 <script src="jquery-ui-1.7.1.custom.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#accordion").accordion();
+	});
+</script>
 </head>
 
 <body>
@@ -22,39 +27,35 @@
     <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
 </div>
 
-<h1><a href="http://github.com/lut4rp/Vote-Up-Down">Vote Up/Down</a>
-  <span class="small">by <a href="http://github.com/lut4rp">lut4rp</a></span></h1>
+<h1><a href="http://github.com/lut4rp/Vote-Up-Down">Vote Up/Down</a></h1>
 <div class="description">
-  Google Summer of Code 2009 project for Drupal
+  Google Summer of Code 2009 project for Drupal<br />
+  Authored by Pratul Kalia, Mentored by Simon Roberts
 </div>
 
-<h2>Dependencies</h2>
-	<p>http://drupal.org/project/votingapi</p>
-<h2>Install</h2>
-	<p>- Install Voting API from http://drupal.org/project/votingapi
-	- Install Vote Up/Down
-	- Hack!</p>
-<h2>License</h2>
-	<p>GNU GPL v2</p>
-<h2>Authors</h2>
-	<p>Pratul Kalia</p>
-<h2>Contact</h2>
-	<p>Pratul Kalia - pratul [at] pratul [dot] in</p>
-
-
-<h2>Download</h2>
+<div id="accordion">
+<h2><a href="#">Introduction</a></h2>
+	<p>It is a Drupal 6 compatible module for all your voting requirements!</p>
+<h2><a href="#">Dependencies</a></h2>
+	<p>Voting API for Drupal 6 - <a href="http://drupal.org/project/votingapi">http://drupal.org/project/votingapi</a></p>
+<h2><a href="#">Download</a></h2>
 <p>
   You can download this project in either
   <a href="http://github.com/lut4rp/Vote-Up-Down/zipball/master">zip</a> or
   <a href="http://github.com/lut4rp/Vote-Up-Down/tarball/master">tar</a> formats.
 </p>
-<p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-  by running:
-  <pre>$ git clone git://github.com/lut4rp/Vote-Up-Down</pre>
-</p>
+<h2><a href="#">Install</a></h2>
+	<p>- Download and install Voting API<br />
+	- Then, download and install Vote Up/Down<br />
+	- Hack!</p>
+<h2><a href="#">Bugs/Issues</a></h2>
+	<p>Pratul Kalia - pratul [at] pratul [dot] in</p>
+<h2><a href="#">License</a></h2>
+	<p>Licensed under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU General Public License v2</a></p>
+</div> <!-- end accordion -->
 
 <div class="footer">
-  May the source be with you! <a href="http://github.com/lut4rp/Vote-Up-Down">http://github.com/lut4rp/Vote-Up-Down</a>
+  May the source be with you! <a href="http://github.com/lut4rp/Vote-Up-Down">http://github.com/lut4rp/Vote-Up-Down/new</a>
 </div>
 
   </div>
